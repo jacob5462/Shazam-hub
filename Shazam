@@ -1,0 +1,244 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Shazam hub",
+    LoadingTitle = "Free version",
+    LoadingSubtitle = "by Shazam",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil,
+       FileName = "Big Hub"
+    },
+    Discord = {
+       Enabled = false,
+       Invite = "noinvitelink",
+       RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+       Title = "Shazam hub Key",
+       Subtitle = "Key System",
+       Note = "https://pastebin.com/raw/L8rjmuUh",
+       FileName = "Key",
+       SaveKey = true,
+       GrabKeyFromSite = true,
+       Key = {"https://pastebin.com/raw/L8rjmuUh"}
+    }
+})
+
+local MainTab = Window:CreateTab("Home", nil)
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+    Title = "Welcome to toocoldhub",
+    Content = "welcome",
+    Duration = 5,
+    Image = nil,
+    Actions = {
+       Ignore = {
+          Name = "Okay!",
+          Callback = function()
+             print("The user tapped Okay!")
+          end
+       }
+    }
+})
+
+local function createButton(name, callback)
+   return MainTab:CreateButton({
+      Name = name,
+      Callback = callback
+   })
+end
+
+createButton("Blatant ms", function()
+   local plr = game.Players.LocalPlayer
+   local rs = game:GetService("RunService")
+   
+   local function magBall(ball)
+      if ball and plr.Character then
+         firetouchinterest(plr.Character["Left Arm"], ball, 0)
+         task.wait()
+         firetouchinterest(plr.Character["Left Arm"], ball, 1)
+      end
+   end
+   
+   rs.Stepped:Connect(function()
+      for _, v in pairs(workspace:GetChildren()) do
+         if v.Name == "Football" and v:IsA("BasePart") then
+            local mag = (plr.Character.Torso.Position - v.Position).Magnitude
+            magBall(v)
+         end
+      end
+   end)
+end)
+
+createButton("infinite jump", function()
+   _G.infinjump = not _G.infinjump
+
+   if _G.infinJumpStarted == nil then
+      _G.infinJumpStarted = true
+      
+      game.StarterGui:SetCore("SendNotification", {Title = "WeAreDevs.net"; Text = "The WeAreDevs Infinite Jump exploit is ready!"; Duration = 5;})
+
+      local plr = game:GetService('Players').LocalPlayer
+      local m = plr:GetMouse()
+      m.KeyDown:connect(function(k)
+         if _G.infinjump and k:byte() == 32 then
+            local humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+            humanoid:ChangeState('Jumping')
+            wait()
+            humanoid:ChangeState('Seated')
+         end
+      end)
+   end
+end)
+
+createButton("FPS BOOSTER", function()
+   _G.Settings = {
+       Players = {
+           ["Ignore Me"] = true,
+           ["Ignore Others"] = true
+       },
+       Meshes = {
+           Destroy = false,
+           LowDetail = true
+       },
+       Images = {
+           Invisible = true,
+           LowDetail = false,
+           Destroy = false,
+       },
+       ["No Particles"] = true,
+       ["No Camera Effects"] = true,
+       ["No Explosions"] = true,
+       ["No Clothes"] = true,
+       ["Low Water Graphics"] = true,
+       ["No Shadows"] = true,
+       ["Low Rendering"] = true,
+       ["Low Quality Parts"] = true
+   }
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+end)
+
+createButton("walkspeed", function()
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 22
+end)
+
+createButton("JumpPower", function()
+   game.Players.LocalPlayer.Character.Humanoid.JumpPower = 51.5
+end)
+
+createButton("No Jump Cooldown", function()
+   local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Revenant", true))()
+   Library.DefaultColor = Color3.fromRGB(255,0,0)
+
+   local plr = game:GetService("Players").LocalPlayer
+
+   for _, v in next, getconnections(plr.Character.Humanoid.StateChanged) do
+      local info = getinfo(v.Function)
+      if info.what == "Lua" and info.source == "=Workspace."..plr.Name..".movementt" then
+         v:Disable()
+      end
+   end
+   Library:Notification({
+      Text = "Disabled Jump Cooldown",
+      Duration = 10
+   })
+end)
+
+createButton("Anti jam", function()
+   for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+      if player ~= game:GetService("Players").LocalPlayer then
+         local character = player.Character
+         if character then
+            for _, part in pairs(character:GetDescendants()) do
+               if part:IsA("BasePart") then
+                  part.CanCollide = false
+               end
+            end
+         end
+      end
+   end
+end)
+
+createButton("quick tp", function()
+   local UserInputService = game:GetService("UserInputService")
+   local player = game.Players.LocalPlayer
+   local character = player.Character or player.CharacterAdded:Wait()
+   local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+   local boostDistance = 2
+
+   local function boostForward()
+      local forwardVector = humanoidRootPart.CFrame.lookVector
+      local newPosition = humanoidRootPart.Position + (forwardVector * boostDistance)
+      humanoidRootPart.CFrame = CFrame.new(newPosition)
+   end
+
+   UserInputService.InputBegan:Connect(function(input, gameProcessed)
+      if not gameProcessed and input.KeyCode == Enum.KeyCode.F then
+         boostForward()
+      end
+   end)
+end)
+
+createButton("Quick tp (Mobile support)", function()
+   local player = game.Players.LocalPlayer
+   local character = player.Character or player.CharacterAdded:Wait()
+   local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+   local boostDistance = 2
+
+   local function boostForward()
+      local forwardVector = humanoidRootPart.CFrame.lookVector
+      local newPosition = humanoidRootPart.Position + (forwardVector * boostDistance)
+      humanoidRootPart.CFrame = CFrame.new(newPosition)
+   end
+
+   local teleportGui = Instance.new("ScreenGui")
+   teleportGui.Name = "TeleportGui"
+   teleportGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+   local teleportButton = Instance.new("TextButton")
+   teleportButton.Name = "TeleportButton"
+   teleportButton.Size = UDim2.new(0, 100, 0, 50)
+   teleportButton.Position = UDim2.new(0.5, -50, 0.9, -25)
+   teleportButton.Text = "TP"
+   teleportButton.Parent = teleportGui
+
+   teleportButton.MouseButton1Click:Connect(function()
+      boostForward()
+   end)
+end)
+
+createButton("auto catch", function()
+   local player = game.Players.LocalPlayer
+   local character = player.Character or player.CharacterAdded:Wait()
+   local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+   local mouse = player:GetMouse()
+
+   local function getFootball()
+      for _, obj in pairs(workspace:GetChildren()) do
+         if obj:IsA("Part") and obj.Name == "Football" then
+            return obj
+         end
+      end
+      return nil
+   end
+
+   local function autoCatch()
+      local football = getFootball()
+      if football then
+         local distance = (football.Position - humanoidRootPart.Position).Magnitude
+         if distance <= 10 then
+            mouse1click()
+         end
+      end
+   end
+
+   while true do
+      autoCatch()
+      wait(0.1)
+   end
+end)
